@@ -1,0 +1,24 @@
+//------------------------------------------------
+//--- 010 Editor v13.0.2 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+LittleEndian();
+
+struct {
+    struct {
+        uint Unk;
+        uint Count;
+    }header;
+
+    struct {
+        byte rawdata[812];
+    }character_entry[header.Count];
+}character_database;

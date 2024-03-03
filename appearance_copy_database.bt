@@ -1,0 +1,40 @@
+//------------------------------------------------
+//--- 010 Editor v13.0.2 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+LittleEndian();
+
+struct {
+    struct {
+        uint Unk;
+        uint Count;
+    }header;
+
+    struct {
+        local ulong POS<hidden=true>;
+        POS = FTell();
+        uint Unk1;
+        uint Unk2;
+        uint Unk3;
+        uint Unk4;
+        float Unk5;
+        float Unk6;
+        float Unk7;
+        float Unk8;
+        uint Unk9;
+        int Unk10;
+        uint ThumbnailPointer;
+        local string Thumbnail;
+        Thumbnail = ReadString(ThumbnailPointer+POS);
+        uint Unk12;
+        uint Unk13;
+    }appearance_copy_entry[header.Count]<optimize=false, read=Thumbnail>;
+}appearance_copy_database;

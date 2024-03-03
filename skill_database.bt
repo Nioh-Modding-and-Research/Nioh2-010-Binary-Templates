@@ -1,0 +1,42 @@
+//------------------------------------------------
+//--- 010 Editor v13.0.2 Binary Template
+//
+//      File: Nioh 2 skill_database.bin
+//   Authors: Moonling
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+LittleEndian();
+
+struct Skill_Database {
+    struct Header {
+        uint Unk;
+        uint Count;
+    }header;
+
+    struct Skill {
+        local ulong POS<hidden=true>;
+        POS = FTell();
+
+        uint SkillID;
+        uint Unk1;
+        uint Unk2;
+        uint Unk3;
+        uint Unk4;
+        uint Unk5;
+        uint Unk6;
+        uint ThumbnailPointer;
+        local string Thumbnail;
+        Thumbnail = ReadString(ThumbnailPointer+POS);
+        uint Unk7;
+        uint Thumbnail2Pointer;
+        local string Thumbnail2;
+        Thumbnail2 = ReadString(Thumbnail2Pointer+POS);
+
+        uint buffer[45];
+    }skill[header.Count]<optimize=false>;
+}skill_database;

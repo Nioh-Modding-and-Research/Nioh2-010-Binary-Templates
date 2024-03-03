@@ -1,0 +1,33 @@
+//------------------------------------------------
+//--- 010 Editor v13.0.2 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+LittleEndian();
+
+struct {
+    struct {
+        uint SectionCount;
+        struct {
+            uint Pointer;
+            uint Size;
+        }pointer_pairs[SectionCount];
+    }header;
+
+    local int i<hidden=true> = 0;
+    for (i = 0; i < header.SectionCount; i++)
+    {
+        FSeek(header.pointer_pairs[i].Pointer);
+        struct {
+            byte RawData[header.pointer_pairs[i].Size];
+        }raw_buffers;
+    }
+
+}datatable;

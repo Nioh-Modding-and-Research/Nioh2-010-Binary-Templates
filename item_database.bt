@@ -1,0 +1,151 @@
+//------------------------------------------------
+//--- 010 Editor v13.0.2 Binary Template
+//
+//      File: Nioh 2 item_database.bin
+//   Authors: Moonling
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+LittleEndian();
+
+enum<uint> ScalingValue
+{ 
+    D = 35,
+    D_Plus = 40,
+    C = 45,
+    C_Plus = 50,
+    B = 55,
+    B_Plus = 60,
+    A = 65,
+    A_Plus = 70,
+};
+
+enum<ushort> ItemType
+{
+    Katana_or_Item = 0,
+    Dual_Katana = 1,
+    Spear = 2,
+    Axe = 3,
+    Kusarigama = 4,
+    Odachi = 5,
+    Tonfa = 6,
+    Hachet = 7,
+    Switchglaive = 8,
+    Splitstaff = 9,
+    Fist = 10,
+    Bow = 11,
+    Rifle = 12,
+    Hand_Cannon = 13,
+    Light_Helmet = 14,
+    Medium_Helmet = 15,
+    Heavy_Helmet = 16,
+    Light_Cuirass = 17,
+    Medium_Cuirass = 18,
+    Heavy_Cuirass = 19,
+    Light_Gauntlets = 20,
+    Medium_Gauntlets = 21,
+    Heavy_Gauntlets = 22,
+    Light_Waistguard = 23,
+    Medium_Waistguard = 24,
+    Heavy_Waistguard = 25,
+    Light_Boots = 26,
+    Medium_Boots = 27,
+    Heavy_Boots = 28,
+    Omamori = 29,
+    Prayer_Beads = 30,
+    Medicine_Case = 31,
+    Magatama = 32,
+    Fan = 33,
+    Yata_Mirror = 34,
+    Pipe = 35,
+    Comb = 36,
+    Hand_Mirror = 37,
+    Whistle = 38,
+    Abacus = 39,
+    Gourd = 40,
+    Japanese_Scissors = 41,
+    Writing_Set = 42,
+    Soul_Core_Box = 43,
+    Red_Soul_Core = 44,
+    Blue_Soul_Core = 45,
+    Purple_Soul_Core = 46,
+    Mortal_Soul_Core = 47,
+    Demon_Scroll = 48,
+};
+
+struct Item_Database {
+    struct Header {
+        uint Unk;
+        uint ItemCount;
+    }header;
+
+    struct Item {
+        local ulong POS<hidden=true>;
+        POS = FTell();
+        ushort ID<format=hex>;
+        ushort Unk1;
+
+        uint Flags;
+        uint Unk2;
+        uint Unk3;
+        uint Unk4;
+        uint ThumbnailPointer;
+        local string Thumbnail;
+        Thumbnail = ReadString(ThumbnailPointer+POS);
+        uint Unk5;
+        uint Unk6;
+        uint Thumbnail2Pointer;
+        local string Thumbnail2;
+        Thumbnail2 = ReadString(Thumbnail2Pointer+POS);
+
+        uint UnkSection1[13];
+        uint Weight;
+        uint UnkSection2[6];
+        ushort Unk7;
+        ItemType Type;
+        ushort UnkShortSection1[18];
+        uint UnkSection3[5];
+
+        uint Weapon_ModelID;
+        uint Sheath_ModelID;
+        uint Weapon2_ModelID;
+        uint Sheath2_ModelID;
+
+        struct Scaling {
+            ScalingValue Constitution;
+            ScalingValue Heart;
+            ScalingValue Stamina;
+            ScalingValue Strength;
+            ScalingValue Skill;
+            ScalingValue Dexterity;
+            ScalingValue Magic;
+            ScalingValue Courage;
+        }scaling;
+
+        uint Unk8;
+        uint Unk9;
+        int Base_Attack;
+        uint Unk10;
+        uint Break;
+        uint Block;
+        uint UnkSection4[8];
+        
+        uint Base_Defense;
+        uint Unk11;
+        uint Toughness;
+        uint Res_Phyical;
+        uint Res_Fire;
+        uint Res_Water;
+        uint Res_Lightning;
+        uint Res_Poison;
+        uint Res_Paralysis;        
+
+        uint UnkSection5[17];
+        float Level_Scaling;
+        uint UnkSection6[7];
+    }item[header.ItemCount]<optimize=false>;
+}item_database;

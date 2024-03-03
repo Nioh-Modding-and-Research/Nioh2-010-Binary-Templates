@@ -1,0 +1,29 @@
+//---------------------
+// Main Section
+//---------------------
+LittleEndian();
+
+struct lfm_order {
+	struct lfmOrderHeader {
+		char Magic[4];
+		int Version;
+		int Count;
+		int LargestFilenameLength;
+		int DataPointer;
+		int NameTablePointer;
+		int FirstNamePointer;
+		int Reserved1;
+		int Reserved2;
+		int SourceNamePointer;
+	}LFMOrderHeader;
+	
+	FSeek(LFMOrderHeader.DataPointer);
+	struct lfmOrderEntry{
+		int Reserved;
+		int FileID;
+		int Pointer;
+        local string FileName;
+        FileName = ReadString(Pointer);
+	}LFMOrderEntry[LFMOrderHeader.Count]<optimize=false>;
+	
+}Lfm_order;

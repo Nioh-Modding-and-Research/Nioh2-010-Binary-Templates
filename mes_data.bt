@@ -1,0 +1,39 @@
+//------------------------------------------------
+//--- 010 Editor v13.0.2 Binary Template
+//
+//      File: Nioh 2 message bin
+//   Authors: Moonling
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+LittleEndian();
+
+//mes bin start with a header of table pointers
+//each table is for a different language
+//dispite this KT made one file per language so even tho there's 15
+//table pointers only one is being used at any given time
+
+struct {
+    struct {
+        uint SectionPtrCount;
+        uint Jpn;
+        uint Kor;
+        uint Eng;
+        uint Fra;
+        uint Ger;
+        uint Ita;
+        uint Esp;
+        uint Ptb;
+        uint Rus;
+        uint Gbr;
+        uint Mex;
+        uint Mes;
+        uint Prt;
+        uint Smp;
+        uint Chn;
+    }header;
+}mes_data;

@@ -1,0 +1,28 @@
+//---------------------
+// Main Section
+//---------------------
+LittleEndian();
+
+struct respack {
+	struct resPackHeader {
+		char Magic[8];
+		int Version;
+		int HeaderSize;
+		int FileSize;
+		int PointerCount;
+		int UnknownCount;
+		int Unknown;
+		int PointerTablePointer;
+		int SizeTablePointer;
+		int ExtraPointer;
+	}RESPACKHeader;
+	
+	FSeek(RESPACKHeader.PointerTablePointer);
+	int Pointers[RESPACKHeader.PointerCount];
+	
+	FSeek(RESPACKHeader.SizeTablePointer);
+	int Sizes[RESPACKHeader.PointerCount];
+	
+	
+	
+}RESPACK;

@@ -1,0 +1,47 @@
+//---------------------
+// Main Section
+//---------------------
+LittleEndian();
+
+enum<uint64> LongBool
+{
+	False = 0,
+	True = 1,
+};
+
+typedef struct (uint64 Align){
+	while(FTell() % Align != 0){
+		byte Padding;
+	}
+}AlignmentBytes;
+
+struct lnk {
+	struct lfmArchiveHeader {
+		char Magic[4];
+		uint Zero;
+		uint64 Files;
+		uint64 FileSize;
+		uint64 Align;
+	}LFMArchiveHeader;
+	
+	struct lfmArchiveEntry {
+		uint64 Offset;
+		uint64 CompressedSize;
+		uint64 Size;
+		LongBool IsCompressed;
+		
+		local int64 Pos<hidden=true>;
+		Pos = FTell();
+		
+		FSeek(Offset);
+		byte FileData[CompressedSize];
+		FSeek(Pos);
+		
+    }LFMArchiveEntry[LFMArchiveHeader.Files]<read=Str("Size: %i  Compressed: %s", this.CompressedSize, EnumToString(this.IsCompressed)), optimize=false>;
+	
+	//AlignmentBytes EntryFileDataPadding(LFMArchiveHeader.Align);
+	
+	//struct fileData{
+	//
+	//}FileData[LFMArchiveHeader.Files];
+}Lnk;

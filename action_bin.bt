@@ -1,0 +1,64 @@
+//------------------------------------------------
+//--- 010 Editor v13.0.2 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+LittleEndian();
+
+struct {
+    struct {
+        uint SectionCount;
+        struct {
+            uint Pointer;
+            uint Size;
+        }pointer_pairs[SectionCount];
+    }header;
+
+    FSeek(header.pointer_pairs[0].Pointer);
+    struct {
+        byte rawdata[header.pointer_pairs[0].Size];
+    }table_1;
+
+    FSeek(header.pointer_pairs[1].Pointer);
+    struct {
+        uint Unk[44];
+    }table_2[header.pointer_pairs[1].Size / 0xB0];
+
+    FSeek(header.pointer_pairs[2].Pointer);
+    struct {
+        uint Unk[32];
+    }table_3[header.pointer_pairs[2].Size / 0x80];
+
+    FSeek(header.pointer_pairs[3].Pointer);
+    struct {
+        short stance;
+        short Unk1;
+        int UnkSection1[4];
+        ushort ActionID;
+        short Unk3;
+        int UnkSection2[10];
+    }table_4[header.pointer_pairs[3].Size / 64];
+
+    FSeek(header.pointer_pairs[4].Pointer);
+    struct {
+        byte rawdata[header.pointer_pairs[4].Size];
+    }table_5;
+
+    FSeek(header.pointer_pairs[5].Pointer);
+    struct {
+        uint Unk[40];
+    }table_6[header.pointer_pairs[5].Size / 0xA0];
+
+    FSeek(header.pointer_pairs[6].Pointer);
+    struct {
+        byte rawdata[header.pointer_pairs[6].Size];
+    }table_7;
+
+}datatable;
